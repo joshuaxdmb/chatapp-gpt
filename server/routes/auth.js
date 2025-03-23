@@ -5,13 +5,14 @@ import dotenv from 'dotenv';
 dotenv.config()
 
 const router = express.Router();
+const CHAT_ENGINE_API = "https://api.chatengine.io";
 
 router.post('/signup',async(req,res)=>{
     console.log(process.env.CHAT_ENGINE_KEY)
     try{
         const {username, password} = req.body
         const chatEngineResponse = await axios.post(
-            "https://api.chatengine.io/users/",
+            `${CHAT_ENGINE_API}/users/`,
             {
                 "username":username,
                 "secret":password
@@ -33,7 +34,7 @@ router.post('/login',async(req,res)=>{
     try{
         const {username, password} = req.body
         const chatEngineResponse = await axios.get(
-            "https://api.chatengine.io/users/me",
+            `${CHAT_ENGINE_API}/users/me`,
             {headers:{   
                 "Project-ID": process.env.PROJECT_ID,
                 "User-Name":username,
@@ -44,7 +45,7 @@ router.post('/login',async(req,res)=>{
         res.status(200).json({username:chatEngineResponse.data.username,password})
 
     } catch(e) {
-        console.error("Error",e)
+        console.error("Login Error:", error.message);
         res.status(500).json({error:e.message})
     }
 })
