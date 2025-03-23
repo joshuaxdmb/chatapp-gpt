@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import MessageFormUi from './MessageFormUi'
 import { usePostAiTextMutation } from '@/state/api'
+import { getFormattedTimestamp } from '@/components/customMessageForms/utils'
 
 const Ai = ({ props, activeChat }) => {
   const [message, setMessage] = useState('')
@@ -8,14 +9,11 @@ const Ai = ({ props, activeChat }) => {
   const [trigger] = usePostAiTextMutation()
 
   const handleSubmit = async () => {
-    const date = new Date()
-      .toISOString()
-      .replace('T', ' ')
-      .replace('Z', `${Math.floor(Math.random() * 1000)}+00:00`)
+    const timestamp = getFormattedTimestamp()
     const at = attachment ? [{ blob: attachment, file: attachment.name }] : []
     const form = {
       attachments: at,
-      created: date,
+      created: timestamp,
       sender_username: props.username,
       text: message,
       activeChatId: activeChat.id,

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import MessageFormUi from './MessageFormUi'
 import { usePostAutoCompleteMutation } from '@/state/api'
+import { getFormattedTimestamp } from '@/components/customMessageForms/utils'
 
 const useDebounce = (value, delay) => {
   const [debounceValue, setDebounceValue] = useState(value)
@@ -24,14 +25,11 @@ const AiComplete = ({ props, activeChat }) => {
   const [appendText, setAppendText] = useState('')
 
   const handleSubmit = async () => {
-    const date = new Date()
-      .toISOString()
-      .replace('T', ' ')
-      .replace('Z', `${Math.floor(Math.random() * 1000)}+00:00`)
+    const timestamp = getFormattedTimestamp()
     const at = attachment ? [{ blob: attachment, file: attachment.name }] : []
     const form = {
       attachments: at,
-      created: date,
+      created: timestamp,
       sender_username: props.username,
       text: message,
       activeChatId: activeChat.id,
