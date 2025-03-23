@@ -25,7 +25,6 @@ app.use(cors());
 const PORT = process.env.PORT || 9000
 app.listen(PORT,console.log(`App listening at port ${PORT}`))
 
-
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
 });

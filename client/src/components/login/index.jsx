@@ -19,7 +19,6 @@ const Login = ({ setUser, setSecret }) => {
   }
 
   useEffect(() => {
-    console.log(resultLogin)
     if (resultLogin.data?.username && resultLogin.data?.password) {
       setUser(username)
       setSecret(password)

@@ -8,7 +8,6 @@ const router = express.Router();
 const CHAT_ENGINE_API = "https://api.chatengine.io";
 
 router.post('/signup',async(req,res)=>{
-    console.log(process.env.CHAT_ENGINE_KEY)
     try{
         const {username, password} = req.body
         const chatEngineResponse = await axios.post(
@@ -21,7 +20,6 @@ router.post('/signup',async(req,res)=>{
                 "PRIVATE-KEY": process.env.CHAT_ENGINE_KEY
             }}
         )
-        console.log('CHAT RESPONSE',chatEngineResponse)
         res.status(200).json({username:chatEngineResponse.data.username,password})
 
     } catch(e) {
@@ -41,7 +39,6 @@ router.post('/login',async(req,res)=>{
                 "User-Secret":password
             }}
         )
-        console.log('Response',chatEngineResponse)
         res.status(200).json({username:chatEngineResponse.data.username,password})
 
     } catch(e) {

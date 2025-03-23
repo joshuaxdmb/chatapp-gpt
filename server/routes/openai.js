@@ -33,7 +33,6 @@ const loader = new DirectoryLoader('./routes/context', {
 
 const call = async (text) => {
   const docs = await loader.load()
-  console.log('Docs', { docs })
 
   const model = new OpenAI({
     modelName: 'gpt-3.5-turbo',

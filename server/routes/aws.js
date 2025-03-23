@@ -32,7 +32,6 @@ router.post('/upload-context', async (req, res) => {
     fs.appendFileSync(CONTEXT_PATH, '\n' + text)
 
     const result = await uploadToS3()
-    console.log('File uploaded successfully:', result.Location)
   } catch (e) {
     console.error('Upload error', e)
     res.status(500).json({ error: e.message })
